@@ -1,0 +1,24 @@
+# ##################################
+# Requirements for the Smart Project
+# ##################################
+#
+# to use: pip install -r requirements.txt
+#collections
+#csv
+docx
+gensim
+#io
+logging
+nltk
+os
+pandas
+pprint
+PyPDF2
+re
+spacy
+string
+subprocess
+sys
+textract
+win32com.client
+pyLDAvis

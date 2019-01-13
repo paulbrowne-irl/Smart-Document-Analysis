@@ -1,0 +1,12 @@
+SMaRt_Report.xlsx
+.vscode/launch.json
+.vscode/settings.json
+output/output.new_words.csv
+output/output.corpus.index
+output/output.corpus
+__pycache__/smart_file_keyword.cpython-35.pyc
+__pycache__/index.cpython-37.pyc
+smart_Cosine_Similarity_Output.xlsx
+__pycache__/index.cpython-35.pyc
+__pycache__/smart_corpus.cpython-35.pyc
+output/output.dict
