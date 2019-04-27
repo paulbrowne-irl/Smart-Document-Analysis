@@ -105,7 +105,6 @@ df = pd.DataFrame(doc_term_matrix,
                   columns=count_vectorizer.get_feature_names())
 
 
-
 #compute the cosine similarity
 print("Generating cosine similarity")
 df_consine_sim= cosine_similarity(df, df)
