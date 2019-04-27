@@ -8,9 +8,20 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+import gensim
+from gensim.matutils import softcossim 
+from gensim import corpora
+import gensim.downloader as api
+from gensim.utils import simple_preprocess
+
 '''
 # Analyse docs using Gensim Cosine Similarity
 https://www.machinelearningplus.com/nlp/cosine-similarity/
+
+Check for and display usage message
+run .\scripts\python smart_analyse_cosine_similarity.py data
+OR
+python incubator\smart_analyse_cosine_similarity.py data
 '''
 
 # Main
@@ -20,8 +31,9 @@ logging.basicConfig(
     format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
 
-# Check for and display usage message
-# run .\scripts\python smart_analyse_cosine_similarity.py data
+# Download the FastText model
+print("Loading Fasttext model")
+fasttext_model300 = api.load('fasttext-wiki-news-subwords-300')
 
 # Global variables
 error_list = []
