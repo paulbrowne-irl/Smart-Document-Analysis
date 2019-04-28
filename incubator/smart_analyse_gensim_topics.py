@@ -15,10 +15,9 @@ import matplotlib.pyplot as plt
 
 
 '''
-# Analyse docs using Gensim library
+# Analyse docs using Gensim library to Analyse topics based on pre-built corpus\
 # based on https://radimrehurek.com/gensim/tut2.html
 '''
-
 
 # Main
 

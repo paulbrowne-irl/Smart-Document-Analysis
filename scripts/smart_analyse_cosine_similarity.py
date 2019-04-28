@@ -21,7 +21,7 @@ https://www.machinelearningplus.com/nlp/cosine-similarity/
 Check for and display usage message
 run .\scripts\python smart_analyse_cosine_similarity.py data
 OR
-python incubator\smart_analyse_cosine_similarity.py data
+python .\scripts\smart_analyse_cosine_similarity.py data
 '''
 
 # Main
