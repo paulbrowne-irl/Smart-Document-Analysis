@@ -1,9 +1,9 @@
 # SMaRt (Sales Marketing almost Real time)
-Scripts to summarize business meaning from text in documents
+Scripts to summarize business meaning from text in documents.
 
-The scripts are non desctructive e.g. given a set of base files (.docx, .pdf etc it should be able to reproduce everything from scratch).
+The scripts are non destructive e.g. given a set of base files (.docx, .pdf etc it should be able to reproduce everything from scratch).
 
-Exception to the rule are specific **FILES** listed below e.g. *table_world_knowledge.xlsx* which contains business specific info about key words (e.g. is it a country)
+Exception to the rule are specific **FILES** listed below e.g. *table_world_knowledge.xlsx* which contains business specific info about key words (e.g. is it a country).
 
 ## Folder Structure
 - **data** : Source data (e.g. diagnostics and reports)
