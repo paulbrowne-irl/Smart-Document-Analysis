@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "demo",
+			"path": "IncubatorJava\\demo"
+		}
+	],
+	"settings": {
+		"explorer.sortOrder": "type",
+		"terminal.integrated.copyOnSelection": true,
+		"terminal.integrated.macOptionClickForcesSelection": true,
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.dependency.syncWithFolderExplorer": false,
+		"java.home": "C:\\Program Files (x86)\\openjdk-12.0.1_windows-x64_bin\\jdk-12.0.1",
+		"maven.view": "hierarchical"
+	}
+}
