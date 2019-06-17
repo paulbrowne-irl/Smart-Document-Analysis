@@ -10,23 +10,25 @@ import org.slf4j.LoggerFactory;
 /**
  * Code for talking to the Database
  */
-
 public class DatabaseLayer implements AutoCloseable {
 
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseLayer.class);
 
 	// private Driver driver;
 	SessionFactory sessionFactory;
+	Configuration configuration;
+
 
 	public DatabaseLayer() {
+
 		this("bolt://localhost:11002", "neo4j", "password");
+		logger.debug("DatabaseLayer()");
 	}
 
 	public DatabaseLayer(String uri, String user, String password) {
-		// driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password));
-		Configuration configuration = new Configuration.Builder().uri(uri).credentials(user, password).build();
 
-		sessionFactory = new SessionFactory(configuration, "net.firstpartners.loader.data");
+		configuration = new Configuration.Builder().uri(uri).credentials(user, password).build();
+		logger.info("Created new Configuration");
 
 	}
 
@@ -38,10 +40,19 @@ public class DatabaseLayer implements AutoCloseable {
 
 	public void persist(Object node) {
 
-		Session session = sessionFactory.openSession();
-		session.save(node);
-		sessionFactory.close();
+		logger.info("In Persist method");
 
+		sessionFactory = new SessionFactory(configuration, "net.firstpartners.loader.data");
+		logger.info("Created new session factory");
+
+		Session session = sessionFactory.openSession();
+		logger.info("Opened session");
+
+		session.save(node);
+		logger.info("Node Saved");
+
+		sessionFactory.close();
+		logger.debug("session closed");
 	}
 	/*
 	 * public void printGreeting(final String message) throws Exception {
