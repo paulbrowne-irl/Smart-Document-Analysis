@@ -33,7 +33,7 @@ public class MovieController {
 		return movieService.graph(limit == null ? 100 : limit);
 	}
 
-	@GetMapping("/create")
+	@GetMapping("create")
 	public Integer create(@RequestParam(value = "title", required = false) String title) {
 		log.info("");
 		log.info("");
