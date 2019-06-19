@@ -3,8 +3,6 @@ package movies.spring.data.neo4j.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.*;
 
 /**
@@ -13,8 +11,8 @@ import org.neo4j.ogm.annotation.*;
 @RelationshipEntity(type = "ACTED_IN")
 public class Role {
 
-    @Id
-    @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Long id;
 	private List<String> roles = new ArrayList<>();
 
@@ -33,25 +31,25 @@ public class Role {
 	}
 
 	public Long getId() {
-	    return id;
+		return id;
 	}
 
 	public List<String> getRoles() {
-	    return roles;
+		return roles;
 	}
 
 	public Person getPerson() {
-	    return person;
+		return person;
 	}
 
 	public Movie getMovie() {
-	    return movie;
+		return movie;
 	}
 
-    public void addRoleName(String name) {
-        if (this.roles == null) {
-            this.roles = new ArrayList<>();
-        }
-        this.roles.add(name);
-    }
+	public void addRoleName(String name) {
+		if (this.roles == null) {
+			this.roles = new ArrayList<>();
+		}
+		this.roles.add(name);
+	}
 }

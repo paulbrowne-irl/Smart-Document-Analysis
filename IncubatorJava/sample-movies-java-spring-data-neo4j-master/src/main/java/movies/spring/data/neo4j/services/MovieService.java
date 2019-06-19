@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MovieService {
 
-	private final static Logger LOG = LoggerFactory.getLogger(MovieService.class);
+	private final static Logger log = LoggerFactory.getLogger(MovieService.class);
 
 	private final MovieRepository movieRepository;
 
@@ -22,6 +22,9 @@ public class MovieService {
 	}
 
 	private Map<String, Object> toD3Format(Collection<Movie> movies) {
+
+		log.debug("to d3 format");
+
 		List<Map<String, Object>> nodes = new ArrayList<>();
 		List<Map<String, Object>> rels = new ArrayList<>();
 		int i = 0;
