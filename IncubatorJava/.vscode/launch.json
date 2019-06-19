@@ -1,20 +1,14 @@
 {
     "configurations": [
+    
         {
             "type": "java",
-            "name": "CodeLens (Launch) - DatabaseLayer",
-            "request": "launch",
-            "mainClass": "net.firstpartners.loader.DatabaseLayer",
-            "projectName": "loader"
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-Neo4Japplication<loader>",
+            "name": "Spring Boot-SampleMovieApplication<sdn5-movies>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
-            "mainClass": "net.firstpartners.loader.Neo4Japplication",
-            "projectName": "loader",
+            "mainClass": "movies.spring.data.neo4j.SampleMovieApplication",
+            "projectName": "sdn5-movies",
             "args": ""
         }
     ]

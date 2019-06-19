@@ -13,9 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MovieService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(MovieService.class);
+	private final static Logger LOG = LoggerFactory.getLogger(MovieService.class);
 
 	private final MovieRepository movieRepository;
+
 	public MovieService(MovieRepository movieRepository) {
 		this.movieRepository = movieRepository;
 	}
@@ -50,20 +51,20 @@ public class MovieService {
 		return result;
 	}
 
-    @Transactional(readOnly = true)
-    public Movie findByTitle(String title) {
-        Movie result = movieRepository.findByTitle(title);
-        return result;
-    }
-
-    @Transactional(readOnly = true)
-    public Collection<Movie> findByTitleLike(String title) {
-        Collection<Movie> result = movieRepository.findByTitleLike(title);
-        return result;
-    }
+	@Transactional(readOnly = true)
+	public Movie findByTitle(String title) {
+		Movie result = movieRepository.findByTitle(title);
+		return result;
+	}
 
 	@Transactional(readOnly = true)
-	public Map<String, Object>  graph(int limit) {
+	public Collection<Movie> findByTitleLike(String title) {
+		Collection<Movie> result = movieRepository.findByTitleLike(title);
+		return result;
+	}
+
+	@Transactional(readOnly = true)
+	public Map<String, Object> graph(int limit) {
 		Collection<Movie> result = movieRepository.graph(limit);
 		return toD3Format(result);
 	}
