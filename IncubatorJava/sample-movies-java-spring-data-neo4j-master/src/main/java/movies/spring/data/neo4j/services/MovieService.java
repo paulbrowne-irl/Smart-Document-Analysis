@@ -71,4 +71,9 @@ public class MovieService {
 		Collection<Movie> result = movieRepository.graph(limit);
 		return toD3Format(result);
 	}
+
+	public Movie create(String title){
+		movieRepository.
+	}
+
 }

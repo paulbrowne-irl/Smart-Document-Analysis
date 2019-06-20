@@ -35,12 +35,8 @@ public class MovieController {
 
 	@GetMapping("create")
 	public Integer create(@RequestParam(value = "title", required = false) String title) {
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
 		log.info("create:" + title);
+		movieService.
 
 		// return movieService.findByTitle(title);
 		return 1;
