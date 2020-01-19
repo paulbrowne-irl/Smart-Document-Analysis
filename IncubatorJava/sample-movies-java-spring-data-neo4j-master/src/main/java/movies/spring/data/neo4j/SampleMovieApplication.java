@@ -1,7 +1,7 @@
 package movies.spring.data.neo4j;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Iterator;
 
 import org.slf4j.Logger;
