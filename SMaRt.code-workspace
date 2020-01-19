@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "C:\\Users\\pbrowne\\projects\\SMaRt-java"
+		},
+		{
+			"path": "C:\\Users\\pbrowne\\projects\\SMaRt-azure"
+		},
+		{
+			"path": "C:\\Users\\pbrowne\\projects\\SMaRt-js"
+		}
+	],
+	"settings": {
+		"explorer.sortOrder": "type",
+		"terminal.integrated.copyOnSelection": true,
+		"terminal.integrated.macOptionClickForcesSelection": true
+	}
+}
