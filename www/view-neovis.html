@@ -1,0 +1,47 @@
+<html>
+<!-- sample from https://medium.com/neo4j/graph-visualization-with-neo4j-using-neovis-js-a2ecaaa7c379-->
+<head>
+        <title>DataViz</title>
+        <style type="text/css">
+            #viz {
+                width: 900px;
+                height: 700px;
+            }
+        </style>
+        <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+    </head>   
+    <script>
+        function draw() {
+            console.log("start");
+            var config = {
+                container_id: "viz",
+                server_url: "bolt://localhost",
+                server_user: "neo4j",
+                server_password: "password",
+                labels: {
+                    "Troll": {
+                        caption: "user_key",
+                        size: "pagerank",
+                        community: "community"
+                    }
+                },
+                relationships: {
+                    "KNOWS": {
+                        caption: false,
+                        thickness: "count"
+                    }
+                },
+                //initial_cypher: "MATCH p=(:Troll)-[:RETWEETS]->(:Troll) RETURN p"
+                initial_cypher: "MATCH (n1)-[r]->(n2) RETURN r, n1, n2 LIMIT 500"
+            }
+
+            var viz = new NeoVis.default(config);
+            viz.render();
+            console.log("Draw Complete")
+        }
+    </script>
+    <body onload="draw()">
+        <div id="viz"></div>
+    </body>
+</html>
+
