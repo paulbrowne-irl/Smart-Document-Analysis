@@ -3,8 +3,8 @@
 # ##################################
 #
 # to use: pip install -r requirements.txt
-#collections
-#csv
+collections
+csv
 docx
 gensim
 #io
@@ -22,3 +22,4 @@ sys
 textract
 win32com.client
 pyLDAvis
+bottle
