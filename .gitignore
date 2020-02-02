@@ -1,5 +1,6 @@
 
 data-no-repo
+.ipynb_checkpoints
 __pycache__
 __pycache__/index.cpython-35.pyc
 __pycache__/index.cpython-37.pyc
