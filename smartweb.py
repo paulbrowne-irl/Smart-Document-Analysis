@@ -6,7 +6,7 @@ app = Bottle()
 # Python mappings
 @app.route('/ReadNeo4j')
 def ReadNeo4j():
-    db = scripts.graphdb.HelloWorldExample()
+    db = scripts.graphdb.DB_Access()
     return db.get_greeting("message")
 
 # Default html

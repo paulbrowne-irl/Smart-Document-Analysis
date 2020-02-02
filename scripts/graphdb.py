@@ -1,7 +1,7 @@
 from neo4j import GraphDatabase
 
-#Sample class to interact wiht neo4j
-class HelloWorldExample(object):
+#Sample class to interact with neo4j
+class DB_Access(object):
 
     def __init__(self, uri=None, user=None, password=None):
 
@@ -36,5 +36,5 @@ class HelloWorldExample(object):
 
 # simple code to run / test class from command line
 
-db = HelloWorldExample()
+db = DB_Access()
 print(db.get_greeting("message"))
