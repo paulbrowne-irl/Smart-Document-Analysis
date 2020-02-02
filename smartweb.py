@@ -1,12 +1,12 @@
 from bottle import Bottle, run, get, static_file
-import script.graphdb
+import scripts.graphdb
 
 app = Bottle()
 
 # Python mappings
 @app.route('/ReadNeo4j')
 def ReadNeo4j():
-    db = script.graphdb.HelloWorldExample()
+    db = scripts.graphdb.HelloWorldExample()
     return db.get_greeting("message")
 
 # Default html
