@@ -1,5 +1,5 @@
 import unittest
-import graphdb
+import scripts.graphdb
 
 class Test_Graphdb (unittest.TestCase):
     #def setUp(self):

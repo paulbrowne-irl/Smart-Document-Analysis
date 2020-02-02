@@ -35,6 +35,6 @@ class DB_Access(object):
         return result.single()[0]
 
 # simple code to run / test class from command line
-
-db = DB_Access()
-print(db.get_greeting("message"))
+if __name__ == '__main__':
+    db = DB_Access()
+    print(db.get_greeting("message"))
