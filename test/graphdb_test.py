@@ -1,5 +1,5 @@
 import unittest
-import scripts.graphdb
+import scripts.GraphDb
 
 class Test_Graphdb (unittest.TestCase):
     
@@ -8,7 +8,7 @@ class Test_Graphdb (unittest.TestCase):
         self.assertTrue(True)
         db = scripts.graphdb.DB_Access()
         self.assertIsNotNone(db.get_greeting("message"))
-        
- 
+
+
 if __name__ == '__main__':
     unittest.main()
