@@ -6,7 +6,7 @@ class Test_Graphdb (unittest.TestCase):
  
     def test_dbconnection(self):
         self.assertTrue(True)
-        db = scripts.graphdb.DB_Access()
+        db = scripts.GraphDb.DB_Access()
         self.assertIsNotNone(db.get_greeting("message"))
 
 

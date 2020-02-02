@@ -4,6 +4,7 @@ Search *all* text snippets and suggest companies
 
 ## Next
 
++ NEXT - move dbconnection to use config class
 + read info using js (movie app)
   + poss <https://github.com/neo4j+examples/movies+graphql+javascript>
     + popoto samples
@@ -13,6 +14,7 @@ Search *all* text snippets and suggest companies
 + Samples from: <https://neo4j.com/developer/tools+graph+visualization/>
 + Load data (python? Java plan B)
 + refine data using tools below (mostly python)
++ simple python documentation on classes
 
 ## Spec + Adminstration
 

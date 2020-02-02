@@ -1,5 +1,4 @@
 import configparser
-import os
 
 #Sample to load config details
 class ConfigLoader(object):
@@ -18,9 +17,17 @@ class ConfigLoader(object):
     def getConfig(self):
         return self.config
 
+    def getUri(self):
+        return self.config.get("neo4j","uri")
+
+    def getUser(self):
+        return self.config.get("neo4j","user")
+
+    def getPassword(self):
+        return self.config.get("neo4j","password")
+
 # simple code to run / test class from command line
 if __name__ == '__main__':
     config = ConfigLoader("config.ini").config
-    print(os.getcwd())
     print(config.sections())
     print(config.get("neo4j","uri"))
