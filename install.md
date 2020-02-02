@@ -10,3 +10,7 @@
 ## Dependencies
 - Listed in Requirements.txt
 - pip install -r requirements.txt
+
+## Neo4j
+- install
+- script to create schema?
