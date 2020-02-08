@@ -14,6 +14,9 @@ class SmartConfig(object):
         self.config.read(config_file_name)
         print(self.config.sections())
 
+    def __str__(self):
+        return "url:"+self.getUri()+" user:"+self.getUser()+" password:"+self.getPassword()
+
     def getConfig(self):
         return self.config
 
@@ -25,6 +28,8 @@ class SmartConfig(object):
 
     def getPassword(self):
         return self.config.get("neo4j","password")
+
+
 
 # simple code to run / test class from command line
 if __name__ == '__main__':

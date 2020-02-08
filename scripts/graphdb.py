@@ -1,20 +1,15 @@
 from neo4j import GraphDatabase
+import scripts.Config
 
 #Sample class to interact with neo4j
 class DB_Access(object):
 
-    def __init__(self, uri=None, user=None, password=None):
+    def __init__(self, config):
 
-        #set defaults on incoming argumenst
-        if(uri==None):
-            uri="bolt://localhost"
-        
-        if(user==None):
-            user="neo4j"
-        
-        if(password==None):
-            password="password"
-
+        uri=config.getUri()
+        user=config.getUser()
+        password=config.getPassword()
+        print("trying to connect using settings:"+str(config))
         self._driver = GraphDatabase.driver(uri, auth=(user, password))
 
 
@@ -36,5 +31,6 @@ class DB_Access(object):
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
-    db = DB_Access()
+    config = scripts.Config.SmartConfig("../../config.ini")
+    db = DB_Access(config)
     print(db.get_greeting("message"))
