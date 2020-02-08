@@ -1,6 +1,6 @@
 import unittest
-import scripts.data.Config
-import scripts.data.GraphDb
+import scripts.dao.Config
+import scripts.dao.GraphDb
 
 
 class Test_Graphdb (unittest.TestCase):
@@ -8,10 +8,10 @@ class Test_Graphdb (unittest.TestCase):
  
     def test_dbconnection(self):
         
-        myConfig = scripts.data.Config.SmartConfig("config.ini")
+        myConfig = scripts.dao.Config.SmartConfig("config.ini")
         print("trying to connect using "+str(myConfig))
 
-        db = scripts.data.GraphDb.DB_Access(myConfig)
+        db = scripts.dao.GraphDb.DB_Access(myConfig)
         self.assertIsNotNone(db.get_greeting("message"))
 
 

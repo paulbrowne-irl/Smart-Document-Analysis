@@ -11,7 +11,7 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8081/index.html",
             "webRoot": "${workspaceFolder}"
-        }
+        },
 
         {
             "name": "Python: Start Bottle (External Terminal)",

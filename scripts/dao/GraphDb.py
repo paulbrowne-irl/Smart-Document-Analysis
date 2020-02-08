@@ -1,5 +1,5 @@
 from neo4j import GraphDatabase
-import scripts.data.Config
+import scripts.dao.Config
 
 #Sample class to interact with neo4j
 class DB_Access(object):
@@ -31,6 +31,6 @@ class DB_Access(object):
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
-    config = scripts.data.Config.SmartConfig("../../config.ini")
+    config = scripts.dao.Config.SmartConfig("../../config.ini")
     db = DB_Access(config)
     print(db.get_greeting("message"))
