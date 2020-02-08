@@ -1,7 +1,7 @@
 import configparser
 
 #Sample to load config details
-class ConfigLoader(object):
+class SmartConfig(object):
     'Convenience class to load system configuration'
 
     def __init__(self, config_file_name=None):
@@ -28,6 +28,6 @@ class ConfigLoader(object):
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
-    config = ConfigLoader("config.ini").config
+    config = SmartConfig("config.ini").config
     print(config.sections())
     print(config.get("neo4j","uri"))
