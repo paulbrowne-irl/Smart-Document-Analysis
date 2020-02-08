@@ -1,11 +1,11 @@
 import unittest
-import scripts.Config
+import scripts.data.Config
 
 class Test_SmartConfig (unittest.TestCase):
  
     def setUp(self):
         
-        self.loader = scripts.Config.SmartConfig("config.ini")
+        self.loader = scripts.data.Config.SmartConfig("config.ini")
         
 
     def test_load_config(self):

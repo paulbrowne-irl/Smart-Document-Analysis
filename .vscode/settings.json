@@ -4,7 +4,7 @@
         "-s",
         "./test",
         "-p",
-        "*test.py"
+        "*_test.py"
     ],
     "python.testing.unittestEnabled": true,
     "python.linting.pylintEnabled": true,
