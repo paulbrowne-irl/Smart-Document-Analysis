@@ -29,6 +29,9 @@ class SmartConfig(object):
     def getPassword(self):
         return self.config.get("neo4j","password")
 
+    def getDbConnectionString(self):
+        return ""
+
 
 
 # simple code to run / test class from command line

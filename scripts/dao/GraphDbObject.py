@@ -11,6 +11,10 @@ class DB_Access_NeoModel(object):
         # store the config for later
         self.config=config
 
+        #setup the DB connection
+        db myGraphDb = db()
+        myGraphDb.setConnection("")   
+
 
 # simple code to run / test class from command line
 if __name__ == '__main__':

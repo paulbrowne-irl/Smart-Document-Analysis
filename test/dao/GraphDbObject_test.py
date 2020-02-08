@@ -1,6 +1,6 @@
 import unittest
 import scripts.dao.Config
-import scripts.dao.GraphDb
+import scripts.dao.GraphDbObject
 
 
 class Test_GraphdbObject (unittest.TestCase):
