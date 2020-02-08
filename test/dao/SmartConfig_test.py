@@ -24,8 +24,8 @@ class Test_SmartConfig (unittest.TestCase):
         self.assertNotEqual(self.loader.getPassword(),self.loader.getUser())
 
     def test_readURLConnect(self):
+        self.assertIsNotNone(self.loader.getDbConnectionString())
         self.assertNotEqual("",self.loader.getDbConnectionString())
-        #'bolt://neo4j:neo4j@localhost:7687'
-
+ 
 if __name__ == '__main__':
     unittest.main()

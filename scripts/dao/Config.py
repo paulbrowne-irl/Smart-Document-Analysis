@@ -14,8 +14,8 @@ class SmartConfig(object):
         self.config.read(config_file_name)
         print(self.config.sections())
 
-    def __str__(self):
-        return "url:"+self.getUri()+" user:"+self.getUser()+" password:"+self.getPassword()
+    # def __str__(self):
+    #    return "url:"+self.getUri()+" user:"+self.getUser()+" password:"+self.getPassword()
 
     def getConfig(self):
         return self.config
@@ -30,7 +30,8 @@ class SmartConfig(object):
         return self.config.get("neo4j","password")
 
     def getDbConnectionString(self):
-        return ""
+        return self.config.get("neo4j","bolt_url")
+   
 
 
 

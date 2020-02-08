@@ -1,19 +1,34 @@
-from neo4j import GraphDatabase
-from neomodel import db
 import scripts.dao.Config
+
+from neomodel import config
+from neomodel import db
+from neomodel import util
+
 
 #Sample class to interact with neo4j
 #This class is for executing queries
 class DB_Access_NeoModel(object):
 
-    def __init__(self, config):
+    def __init__(self, smart_config):
 
         # store the config for later
-        self.config=config
+        self.smart_config=smart_config
+       
+    # execute query
+    # return results, meta
+    def execute_cyper(self, query,params):
+        
+        print("trying to connect to:"+self.smart_config.getDbConnectionString())
+        db.set_connection(self.smart_config.getDbConnectionString())
 
-        #setup the DB connection
-        db myGraphDb = db()
-        myGraphDb.setConnection("")   
+         #setup the DB connection
+        #db.DATABASE_URL =
+        #db.DATABASE_URL="bolt://neo4j:password@localhost:7687"
+        #db.DATABASE_URL="bolt://neo4j:neo4j@localhost:7687"
+        
+        # for standalone queries
+        return db.cypher_query(query, params)
+        
 
 
 # simple code to run / test class from command line
