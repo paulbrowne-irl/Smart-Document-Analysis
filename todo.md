@@ -5,6 +5,8 @@ Search *all* text snippets and suggest companies
 ## Next
 
 + NEXT - move dbconnection to use config class
+
++ try <https://neomodel.readthedocs.io/en/latest/> to map python
 + read info using js (movie app)
   + poss <https://github.com/neo4j+examples/movies+graphql+javascript>
     + popoto samples
