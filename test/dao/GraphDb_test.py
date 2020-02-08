@@ -11,7 +11,7 @@ class Test_Graphdb (unittest.TestCase):
         myConfig = scripts.dao.Config.SmartConfig("config.ini")
         print("trying to connect using "+str(myConfig))
 
-        db = scripts.dao.GraphDb.DB_Access(myConfig)
+        db = scripts.dao.GraphDb.DB_Access_Cypher(myConfig)
         self.assertIsNotNone(db.get_greeting("message"))
 
 

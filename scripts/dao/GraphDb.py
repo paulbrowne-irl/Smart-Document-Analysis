@@ -2,9 +2,13 @@ from neo4j import GraphDatabase
 import scripts.dao.Config
 
 #Sample class to interact with neo4j
-class DB_Access(object):
+#This class is for executing queries
+class DB_Access_Cypher(object):
 
     def __init__(self, config):
+
+        # store the config for later
+        self.config=config
 
         uri=config.getUri()
         user=config.getUser()
@@ -32,5 +36,5 @@ class DB_Access(object):
 # simple code to run / test class from command line
 if __name__ == '__main__':
     config = scripts.dao.Config.SmartConfig("../../config.ini")
-    db = DB_Access(config)
+    db = DB_Access_Cypher(config)
     print(db.get_greeting("message"))
