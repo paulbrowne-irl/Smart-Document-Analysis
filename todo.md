@@ -4,7 +4,7 @@ Search *all* text snippets and suggest companies
 
 ## Next
 
-+ NEXT - move dbconnection to use config class
++ NEXT - resinsatll neo4j, try http in connection url (for graphDBObject_test.py)
 
 + try <https://neomodel.readthedocs.io/en/latest/> to map python
 + read info using js (movie app)

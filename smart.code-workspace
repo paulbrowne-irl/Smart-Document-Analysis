@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"explorer.sortOrder": "type",
+		"terminal.integrated.copyOnSelection": true,
+		"terminal.integrated.macOptionClickForcesSelection": true
+	}
+}
