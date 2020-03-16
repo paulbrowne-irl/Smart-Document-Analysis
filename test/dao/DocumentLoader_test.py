@@ -1,20 +1,26 @@
 import unittest
 import scripts.dao.Config
-import scripts.dao.GraphDbObject
+import scripts.dao.DocumentLoader
 
 
-class Test_GraphdbObject (unittest.TestCase):
+class Document_loader_test (unittest.TestCase):
     
+    def setUp(self):
+        return super().setUp()
+
+    def tearDown(self):
+        return super().tearDown()
  
-    def test_dbconnection(self):
 
-       myConfig = scripts.dao.Config.SmartConfig("config.ini")
-       db = scripts.dao.GraphDbObject.DB_Access_NeoModel(myConfig)
+    def test_add_merge_delete_docuemnt(self):
 
-       query="CREATE (a:Greeting) SET a.message = $message RETURN a.message + ', from node ' + id(a)"
-       params="test messge"
+        self.fail("add test not implemented yet")
 
-       self.assertIsNotNone(db.execute_cyper(query,params))
+
+        self.fail("merge test not implemented yet")
+
+
+        self.fail("delete test not implemented yet")
 
 if __name__ == '__main__':
     unittest.main()

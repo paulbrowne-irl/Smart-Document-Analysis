@@ -32,7 +32,7 @@ class DocumentLoader(object):
 
 
 #Refactoring in progress
-def tmpMethod(self):
+def add_document(self):
 
     #First parameter is the URL, the password  second is the username and third is 
     graph = Graph(password="password")
@@ -42,7 +42,14 @@ def tmpMethod(self):
     # graph= Graph("http://localhost:7474/db/data/") 
 
         
+#Refactoring in progress
+def merge_document(self):
+    print("not yet implemented")
 
+
+#Refactoring in progress
+def delete_document(self):
+    print("not yet implemented")
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
