@@ -1,6 +1,5 @@
 import unittest
-import scripts.dao.Config
-import scripts.dao.DocumentLoader
+import scripts.model.Document
 
 
 class Document_test (unittest.TestCase):
@@ -14,11 +13,14 @@ class Document_test (unittest.TestCase):
 
     def test_create_document_data_object(self):
 
-        self.fail("create document test not implemented yet")
+        doc1 = scripts.model.Document.Document("filename","contents")
+        doc2 = scripts.model.Document.Document("filename","contents")
+        self.assertEquals(doc1,doc2)
 
+        doc3 = scripts.model.Document.Document("filename","contents-completely different")
+        self.assertNotEqual(doc1,doc3)
 
-        self.fail("equals test not implemented yet")
-
+        
 
 if __name__ == '__main__':
     unittest.main()
