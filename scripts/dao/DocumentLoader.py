@@ -4,10 +4,11 @@ from neomodel import config
 from neomodel import db
 from neomodel import util
 
+from py2neo import Graph 
 
-#Sample class to interact with neo4j
-#This class is for executing queries
-class DB_Access_NeoModel(object):
+
+# Read and write Documents from Neo4j
+class DocumentLoader(object):
 
     def __init__(self, smart_config):
 
@@ -28,11 +29,23 @@ class DB_Access_NeoModel(object):
         
         # for standalone queries
         return db.cypher_query(query, params)
+
+
+#Refactoring in progress
+def tmpMethod(self):
+
+    #First parameter is the URL, the password  second is the username and third is 
+    graph = Graph(password="password")
+    #nodes = graph.nodes().get()
+    print(graph.run("MATCH (n)  RETURN n").to_data_frame())
+    # py2neo.authenticate( "localhost:7474" , "neo4j","password") 
+    # graph= Graph("http://localhost:7474/db/data/") 
+
         
 
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
     config = scripts.dao.Config.SmartConfig("../../config.ini")
-    db = DB_Access_NeoModel(config)
+    db = DocumentLoader(config)
     
