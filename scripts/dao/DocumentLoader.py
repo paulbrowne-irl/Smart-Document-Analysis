@@ -7,9 +7,10 @@ from py2neo import Graph, Node
 class DocumentLoader(object):
 
     #What we store the nodes under
-    DOCUMENT_TYPE:Final = "DOCUMENT"
+    DOCUMENT_TYPE:Final = "Document"
     FILENAME_PROPERTY:Final = "filename"
     CONTENT_PROPERTY:Final = "content"
+    TESTDATA_PROPERTY:Final = "testdata"
     
 
     #Queries
@@ -37,6 +38,10 @@ class DocumentLoader(object):
 
         #First parameter is the URL, the password  second is the username and third is
         my_node = Node(DocumentLoader.DOCUMENT_TYPE,FILENAME_PROPERTY=filename, CONTENT_PROPERTY=content)
+
+        #Mark if this test data
+        if(testdata):
+            my_node[DocumentLoader.TESTDATA_PROPERTY]=True
 
         self.graph.create(my_node)
     
