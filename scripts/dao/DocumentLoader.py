@@ -30,10 +30,10 @@ class DocumentLoader(object):
     def count_nodes(self):
         
         df= self.graph.run(DocumentLoader.CYPHER_COUNT_NODES).to_data_frame()
-        #print(df)
+        
         return int(df['count'][0])   
 
-    #Refactoring in progress
+    #Add a document to the Graph
     def add_document(self, filename, content,testdata=False):
 
         #First parameter is the URL, the password  second is the username and third is

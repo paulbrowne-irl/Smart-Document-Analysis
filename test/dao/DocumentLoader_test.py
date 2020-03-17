@@ -23,15 +23,15 @@ class Document_loader_test (unittest.TestCase):
 
         docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
 
+        num_result_before = docLoader.count_nodes()
         docLoader.add_document("some_filename","content of some madeup type",testdata=True)
+        num_result_after = docLoader.count_nodes()
+        self.assertEqual(num_result_before+1,num_result_after)
+        
+        
+        #these will fail as not yet implented
         docLoader.merge_document()
         docLoader.delete_document()
-
-
-        self.fail("merge test not implemented yet")
-
-
-        self.fail("delete test not implemented yet")
 
 if __name__ == '__main__':
     unittest.main()
