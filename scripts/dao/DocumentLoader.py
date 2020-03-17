@@ -21,9 +21,12 @@ class DocumentLoader(object):
         
         #setup connection to DB via py2neo
         config_password = smart_config.getPassword()
-        print("Trying connection via py2neo using password:"+config_password)
-        self.graph = Graph(password=config_password)
+        config_user= smart_config.getUser()
+        config_host = smart_config.getHost()
+        config_port = smart_config.getPort()
 
+        print("Trying connection via py2neo using config:"+str(smart_config))
+        self.graph = Graph(host=config_host, port=config_port, user=config_user,password=config_password)
 
        
     # count the number of nodes in a graph

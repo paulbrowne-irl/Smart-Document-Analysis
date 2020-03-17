@@ -2,6 +2,17 @@
 
 Search *all* text snippets and suggest companies
 
+
+## NOW (MAX OF 4)
+
+tests passing
+merge document
+delete node
+Add company
+add wordcount to doc
+	
+
+
 ## Next
 
 + NEXT - resinsatll neo4j, try http in connection url (for graphDBObject_test.py)

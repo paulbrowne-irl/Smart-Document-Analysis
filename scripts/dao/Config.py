@@ -14,14 +14,14 @@ class SmartConfig(object):
         self.config.read(config_file_name)
         print(self.config.sections())
 
-    # def __str__(self):
-    #    return "url:"+self.getUri()+" user:"+self.getUser()+" password:"+self.getPassword()
+    def __str__(self):
+        return "host:"+self.getHost()+"port "+self.getPort()+" user:"+self.getUser()+" password:"+self.getPassword()
 
     def getConfig(self):
         return self.config
 
-    def getUri(self):
-        return self.config.get("neo4j","uri")
+    def getHost(self):
+        return self.config.get("neo4j","host")
 
     def getUser(self):
         return self.config.get("neo4j","user")
@@ -29,11 +29,9 @@ class SmartConfig(object):
     def getPassword(self):
         return self.config.get("neo4j","password")
 
-    def getDbConnectionString(self):
-        return self.config.get("neo4j","bolt_url")
+    def getPort(self):
+        return self.config.get("neo4j","port")
    
-
-
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
