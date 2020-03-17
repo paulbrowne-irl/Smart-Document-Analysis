@@ -1,55 +1,55 @@
 import scripts.dao.Config
+from typing import Final
 
-from neomodel import config
-from neomodel import db
-from neomodel import util
-
-from py2neo import Graph 
-
+from py2neo import Graph, Node
 
 # Read and write Documents from Neo4j
 class DocumentLoader(object):
 
+    #What we store the nodes under
+    DOCUMENT_TYPE:Final = "DOCUMENT"
+    FILENAME_PROPERTY:Final = "filename"
+    CONTENT_PROPERTY:Final = "content"
+    
+
+    #Queries
+    CYPHER_COUNT_NODES:Final ="MATCH (N) return count(N) as count"
+
     def __init__(self, smart_config):
 
-        # store the config for later
-        self.smart_config=smart_config
+        
+        #setup connection to DB via py2neo
+        config_password = smart_config.getPassword()
+        print("Trying connection via py2neo using password:"+config_password)
+        self.graph = Graph(password=config_password)
+
+
        
-    # execute query
-    # return results, meta
-    def execute_cyper(self, query,params):
+    # count the number of nodes in a graph
+    def count_nodes(self):
         
-        print("trying to connect to:"+self.smart_config.getDbConnectionString())
-        db.set_connection(self.smart_config.getDbConnectionString())
+        df= self.graph.run(DocumentLoader.CYPHER_COUNT_NODES).to_data_frame()
+        #print(df)
+        return int(df['count'][0])   
 
-         #setup the DB connection
-        #db.DATABASE_URL =
-        #db.DATABASE_URL="bolt://neo4j:password@localhost:7687"
-        #db.DATABASE_URL="bolt://neo4j:neo4j@localhost:7687"
+    #Refactoring in progress
+    def add_document(self, filename, content,testdata=False):
+
+        #First parameter is the URL, the password  second is the username and third is
+        my_node = Node(DocumentLoader.DOCUMENT_TYPE,FILENAME_PROPERTY=filename, CONTENT_PROPERTY=content)
+
+        self.graph.create(my_node)
+    
         
-        # for standalone queries
-        return db.cypher_query(query, params)
+    #Refactoring in progress
+    def merge_document(self):
+        raise ValueError("not yet implemented")
 
 
-#Refactoring in progress
-def add_document(self):
+    #Refactoring in progress
+    def delete_document(self):
+        raise ValueError("not yet implemented")
 
-    #First parameter is the URL, the password  second is the username and third is 
-    graph = Graph(password="password")
-    #nodes = graph.nodes().get()
-    print(graph.run("MATCH (n)  RETURN n").to_data_frame())
-    # py2neo.authenticate( "localhost:7474" , "neo4j","password") 
-    # graph= Graph("http://localhost:7474/db/data/") 
-
-        
-#Refactoring in progress
-def merge_document(self):
-    print("not yet implemented")
-
-
-#Refactoring in progress
-def delete_document(self):
-    print("not yet implemented")
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
