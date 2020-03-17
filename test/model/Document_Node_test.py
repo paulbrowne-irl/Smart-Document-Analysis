@@ -1,5 +1,6 @@
 import unittest
 import scripts.model.Document
+import scripts.model.DocumentNode
 
 
 class Document_test (unittest.TestCase):
@@ -20,7 +21,13 @@ class Document_test (unittest.TestCase):
         doc3 = scripts.model.Document.Document("filename","contents-completely different")
         self.assertNotEqual(doc1,doc3)
 
-        
+    def test_create_Document_Node(self):
+        doc1 = scripts.model.DocumentNode.DocumentNode("filename","contents")
+        doc2 = scripts.model.DocumentNode.DocumentNode("filename","contents")
+        self.assertEquals(doc1,doc2)
+
+        doc3 = scripts.model.DocumentNode.DocumentNode("filename","contents-completely different")
+        self.assertNotEqual(doc1,doc3)
 
 if __name__ == '__main__':
     unittest.main()

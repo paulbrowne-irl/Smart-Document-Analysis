@@ -47,17 +47,13 @@ class DocumentLoader(object):
             my_node[DocumentLoader.TESTDATA_PROPERTY]=True
 
         self.graph.create(my_node)
+
+    #Add a document to the Graph
+    def add_document_node(self, node):
+
+        self.graph.push(node)
     
-        
-    #Refactoring in progress
-    def merge_document(self):
-        raise ValueError("not yet implemented")
-
-
-    #Refactoring in progress
-    def delete_document(self):
-        raise ValueError("not yet implemented")
-
+    
 
 # simple code to run / test class from command line
 if __name__ == '__main__':

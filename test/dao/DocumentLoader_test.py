@@ -1,6 +1,7 @@
 import unittest
 import scripts.dao.Config
 import scripts.dao.DocumentLoader
+import scripts.model.DocumentNode
 
 
 class Document_loader_test (unittest.TestCase):
@@ -19,7 +20,7 @@ class Document_loader_test (unittest.TestCase):
         self.assertIsNotNone(num_result)
         self.assertGreaterEqual(num_result,0)
 
-    def test_add_merge_delete_docuemnt(self):
+    def test_add_merge_delete_document(self):
 
         docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
 
@@ -28,10 +29,22 @@ class Document_loader_test (unittest.TestCase):
         num_result_after = docLoader.count_nodes()
         self.assertEqual(num_result_before+1,num_result_after)
         
+
+    def test_add_document_node(self):
+
+        docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
+        myDoc = scripts.model.DocumentNode.DocumentNode()
+
+
+        num_result_before = docLoader.count_nodes()
+        docLoader.add_document_node(myDoc)
+        num_result_after = docLoader.count_nodes()
+        self.assertEqual(num_result_before+1,num_result_after)
         
-        #these will fail as not yet implented
-        docLoader.merge_document()
-        docLoader.delete_document()
+        
+        
+
+
 
 if __name__ == '__main__':
     unittest.main()
