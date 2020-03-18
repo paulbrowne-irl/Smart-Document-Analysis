@@ -20,7 +20,7 @@ class Document_loader_test (unittest.TestCase):
         self.assertIsNotNone(num_result)
         self.assertGreaterEqual(num_result,0)
 
-    def test_add_merge_delete_document(self):
+    def test_add_document(self):
 
         docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
 
@@ -33,8 +33,11 @@ class Document_loader_test (unittest.TestCase):
     def test_add_document_node(self):
 
         docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
-        myDoc = scripts.model.DocumentNode.DocumentNode()
 
+        myDoc = scripts.model.DocumentNode.DocumentNode()
+        myDoc.filename="Another node-y filename.txt"
+        myDoc.text="blah blah blah blah blah blah blah blah blah blah blah blah"
+        myDoc.testdata=True
 
         num_result_before = docLoader.count_nodes()
         docLoader.add_document_node(myDoc)
