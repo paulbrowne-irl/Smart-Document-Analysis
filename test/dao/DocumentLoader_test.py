@@ -40,7 +40,7 @@ class Document_loader_test (unittest.TestCase):
         myDoc.testdata=True
 
         num_result_before = docLoader.count_nodes()
-        docLoader.add_document_node(myDoc)
+        docLoader.add_note(myDoc)
         num_result_after = docLoader.count_nodes()
         self.assertEqual(num_result_before+1,num_result_after)
         

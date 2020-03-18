@@ -36,7 +36,7 @@ class DocumentLoader(object):
         
         return int(df['count'][0])   
 
-    #Add a document to the Graph
+    #Add a document to the Graph by translating it to a note
     def add_document(self, filename, content,testdata=False):
 
         #First parameter is the URL, the password  second is the username and third is
@@ -49,7 +49,7 @@ class DocumentLoader(object):
         self.graph.create(my_node)
 
     #Add a document to the Graph
-    def add_document_node(self, node):
+    def add_note(self, node):
 
         self.graph.push(node)
     
