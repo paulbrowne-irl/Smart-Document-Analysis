@@ -1,6 +1,6 @@
 import unittest
 import scripts.dao.Config
-import scripts.dao.DocumentLoader
+import scripts.dao.Loader
 import scripts.model.DocumentNode
 
 
@@ -15,14 +15,14 @@ class Document_loader_test (unittest.TestCase):
  
     def test_db_connection(self):
         
-        docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
+        docLoader = scripts.dao.Loader.DocumentLoader(self.pre_config)
         num_result = docLoader.count_nodes()
         self.assertIsNotNone(num_result)
         self.assertGreaterEqual(num_result,0)
 
     def test_add_document(self):
 
-        docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
+        docLoader = scripts.dao.Loader.DocumentLoader(self.pre_config)
 
         num_result_before = docLoader.count_nodes()
         docLoader.add_document("some_filename","content of some madeup type",testdata=True)
@@ -30,9 +30,9 @@ class Document_loader_test (unittest.TestCase):
         self.assertEqual(num_result_before+1,num_result_after)
         
 
-    def test_add_document_node(self):
+    def test_add_remove_document_node(self):
 
-        docLoader = scripts.dao.DocumentLoader.DocumentLoader(self.pre_config)
+        docLoader = scripts.dao.Loader.DocumentLoader(self.pre_config)
 
         myDoc = scripts.model.DocumentNode.DocumentNode()
         myDoc.filename="Another node-y filename.txt"
@@ -40,7 +40,7 @@ class Document_loader_test (unittest.TestCase):
         myDoc.testdata=True
 
         num_result_before = docLoader.count_nodes()
-        docLoader.add_note(myDoc)
+        docLoader.add_node(myDoc)
         num_result_after = docLoader.count_nodes()
         self.assertEqual(num_result_before+1,num_result_after)
         

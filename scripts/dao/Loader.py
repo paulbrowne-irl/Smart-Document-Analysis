@@ -3,7 +3,7 @@ from typing import Final
 
 from py2neo import Graph, Node
 
-# Read and write Documents from Neo4j
+# Read and write Nodes from Neo4j
 class DocumentLoader(object):
 
     #What we store the nodes under
@@ -49,11 +49,13 @@ class DocumentLoader(object):
         self.graph.create(my_node)
 
     #Add a document to the Graph
-    def add_note(self, node):
+    def add_node(self, node):
 
         self.graph.push(node)
     
-    
+    #delete a node
+    def remove_node(self,node):
+        self.graph.delete(node)
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
