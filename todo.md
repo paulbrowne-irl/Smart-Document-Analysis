@@ -1,9 +1,5 @@
 # NOW (MAX OF 4)
 
-move to object mapping (neo4j)
-tests passing
-merge document
-delete node
 Add company
 add wordcount to doc
 

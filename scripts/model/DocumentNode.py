@@ -1,5 +1,6 @@
-from py2neo.ogm import GraphObject, Label, Property, RelatedFrom
+from py2neo.ogm import GraphObject, Label, Property, Related
 
+import scripts.model.DocumentNode
 
 # Tutorial https://py2neo.org/v4/ogm.html
     
@@ -17,6 +18,4 @@ class DocumentNode(GraphObject):
     text = Property("text")
     testdata = Property()
 
-    #actors = RelatedFrom("Person", "ACTED_IN")
-    #directors = RelatedFrom("Person", "DIRECTED")
-    #producers = RelatedFrom("Person", "PRODUCED")
+    company = Related(scripts.model.CompanyNode,"CONTAINS")
