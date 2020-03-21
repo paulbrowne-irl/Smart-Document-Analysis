@@ -1,7 +1,6 @@
 import unittest
 
-import scripts.model.DocumentNode
-
+import scripts.model.Node
 
 class Document_test (unittest.TestCase):
     
@@ -13,16 +12,16 @@ class Document_test (unittest.TestCase):
  
 
     def test_create_Document_Node(self):
-        doc1 = scripts.model.DocumentNode.DocumentNode()
+        doc1 = scripts.model.Node.DocumentNode()
         doc1.filename ="filename"
         doc1.contents ="contents"
 
-        doc2 = scripts.model.DocumentNode.DocumentNode()
+        doc2 = scripts.model.Node.DocumentNode()
         doc2.filename ="filename"
         doc2.contents ="contents"
         self.assertEquals(doc1,doc2)
 
-        doc3 = scripts.model.DocumentNode.DocumentNode()
+        doc3 = scripts.model.Node.DocumentNode()
         doc3.filename ="filename-dfferent"
         doc3.contents ="contents"
         self.assertNotEqual(doc1,doc3)
