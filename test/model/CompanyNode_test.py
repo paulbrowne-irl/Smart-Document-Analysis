@@ -3,7 +3,7 @@ import unittest
 import scripts.model.Node
 
 
-class Document_test (unittest.TestCase):
+class Node_test (unittest.TestCase):
     
     def setUp(self):
         return super().setUp()

@@ -25,4 +25,4 @@ class CompanyNode(GraphObject):
     name = Property()
     testdata = Property()
 
-    document = RelatedTo(DocumentNode)
+    document = Related(DocumentNode)
