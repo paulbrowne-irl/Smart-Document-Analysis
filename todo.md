@@ -1,7 +1,5 @@
 # NOW (MAX OF 4)
-
-Add company
-add wordcount to doc
+directory walker - add first pass at DB
 
 ## PROJECT AIM
 
