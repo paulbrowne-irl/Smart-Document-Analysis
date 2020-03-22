@@ -1,24 +1,20 @@
 import unittest
-import scripts.dao.Config
-import scripts.dao.Loader
-import scripts.dao.Node
-
+import scripts.controller.TextExtractor
 
 class Document_loader_test (unittest.TestCase):
     
     def setUp(self):
-        self.pre_config = scripts.dao.Config.SmartConfig("config.ini")
         return super().setUp()
 
     def tearDown(self):
         return super().tearDown()
  
-    def test_text_extraction(self):
-        self.fail("Test not yet implemented")
-
-    
+   
     def test_walker(self):
-        self.fail("Test not yet implemented")
+        extractor = scripts.controller.TextExtractor.Walker()
+        my_nodes=extractor.extract_dir("test\\sample_docs")
+        self.assertIsNotNone(my_nodes)
+        self.assertGreater(len(my_nodes),0)
 
 
 
