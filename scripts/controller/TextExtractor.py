@@ -43,7 +43,7 @@ class Extractor(object):
 #===============================================
 class Walker (object):
     
-    def processPDF(self,entry):
+    def processPDF(self,entry)->str:
 
         content = ""
         pdf = PyPDF2.PdfFileReader(entry.path, "rb")
@@ -53,15 +53,15 @@ class Walker (object):
         return content
      
     
-    def processTextTract(self,input_file_name):
+    def processTextTract(self,input_file_name)->str:
         
         print("Converting "+input_file_name+" to text")
         text = textract.process(input_file_name)
         return text
 
-    'walk the directory tree'
-    
-    def extract_dir(self, input_dir_name, dump_to_file=False):
+    # walk the directory tree
+
+    def extract_dir(self, input_dir_name, dump_to_file=False)   :
        
         #Handle to the thing that does the text extractor
         node_list = []
