@@ -1,7 +1,7 @@
 import unittest
 import scripts.dao.Config
 import scripts.dao.Loader
-import scripts.model.Node
+import scripts.dao.Node
 
 
 class Document_loader_test (unittest.TestCase):
@@ -36,7 +36,7 @@ class Document_loader_test (unittest.TestCase):
         docLoader = scripts.dao.Loader.DocumentLoader(self.pre_config)
         num_result_before = docLoader.count_nodes()
         
-        myDoc = scripts.model.Node.DocumentNode()
+        myDoc = scripts.dao.Node.DocumentNode()
         myDoc.filename="Another node-y filename.txt"
         myDoc.text="blah blah blah blah blah blah blah blah blah blah blah blah"
         myDoc.testdata=True
@@ -56,19 +56,19 @@ class Document_loader_test (unittest.TestCase):
         docLoader = scripts.dao.Loader.DocumentLoader(self.pre_config)
         num_result_before = docLoader.count_nodes()
         
-        keyword1=scripts.model.Node.KeywordNode()
+        keyword1=scripts.dao.Node.KeywordNode()
         keyword1.word ="european"
         keyword1.testdata=True
-        keyword2=scripts.model.Node.KeywordNode()
+        keyword2=scripts.dao.Node.KeywordNode()
         keyword2.word ="supply-chain"
         keyword2.testdata=True
 
-        comp1 = scripts.model.Node.CompanyNode()
+        comp1 = scripts.dao.Node.CompanyNode()
         comp1.name ="Acme"
         comp1.company_id ="12345"
         comp1.testdata =True
 
-        doc1 = scripts.model.Node.DocumentNode()
+        doc1 = scripts.dao.Node.DocumentNode()
         doc1.filename ="filename1"
         doc1.contents ="contents"
         doc1.testdata=True
@@ -76,7 +76,7 @@ class Document_loader_test (unittest.TestCase):
         doc1.keyword.add(keyword2)
         
 
-        doc2 = scripts.model.Node.DocumentNode()
+        doc2 = scripts.dao.Node.DocumentNode()
         doc2.filename ="filename2"
         doc2.contents ="contents - blah blah"
         doc2.testdata=True
