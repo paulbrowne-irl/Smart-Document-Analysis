@@ -1,9 +1,16 @@
 # NOW (MAX OF 4)
-directory walker - add first pass at DB
+
++ refatctor text extract (a) into extractor (b) into walker (c)into classe
++ directory walker - add first pass at DB
 
 ## PROJECT AIM
 
 Search *all* text snippets and suggest companies
+
+## tidy
+
++ logging instead of printing
++ better commetns (pydoc - google how it is done)
 
 ## Next
 
