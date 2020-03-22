@@ -1,7 +1,7 @@
 import unittest
 import scripts.dao.Config
 import scripts.dao.Loader
-import scripts.model.DocumentNode
+import scripts.model.Node
 
 
 class Document_loader_test (unittest.TestCase):
@@ -36,7 +36,7 @@ class Document_loader_test (unittest.TestCase):
         docLoader = scripts.dao.Loader.DocumentLoader(self.pre_config)
         num_result_before = docLoader.count_nodes()
         
-        myDoc = scripts.model.DocumentNode.DocumentNode()
+        myDoc = scripts.model.Node.DocumentNode()
         myDoc.filename="Another node-y filename.txt"
         myDoc.text="blah blah blah blah blah blah blah blah blah blah blah blah"
         myDoc.testdata=True
@@ -51,6 +51,50 @@ class Document_loader_test (unittest.TestCase):
         self.assertEqual(num_result_before,num_result_after_after)
         
         
+    def test_add_remove_multiple_nodes(self):
+    
+        docLoader = scripts.dao.Loader.DocumentLoader(self.pre_config)
+        num_result_before = docLoader.count_nodes()
+        
+        keyword1=scripts.model.Node.KeywordNode()
+        keyword1.word ="european"
+        keyword1.testdata=True
+        keyword2=scripts.model.Node.KeywordNode()
+        keyword2.word ="supply-chain"
+        keyword2.testdata=True
+
+        comp1 = scripts.model.Node.CompanyNode()
+        comp1.name ="Acme"
+        comp1.company_id ="12345"
+        comp1.testdata =True
+
+        doc1 = scripts.model.Node.DocumentNode()
+        doc1.filename ="filename1"
+        doc1.contents ="contents"
+        doc1.testdata=True
+        doc1.keyword.add(keyword1)
+        doc1.keyword.add(keyword2)
+        
+
+        doc2 = scripts.model.Node.DocumentNode()
+        doc2.filename ="filename2"
+        doc2.contents ="contents - blah blah"
+        doc2.testdata=True
+        doc2.keyword.add(keyword1)
+
+        comp1.document.add(doc1)
+        comp1.document.add(doc2)
+
+       
+        docLoader.add_update_node(comp1)
+        num_result_after = docLoader.count_nodes()
+        self.assertTrue(num_result_before+2>num_result_after)
+        
+        docLoader.remove_node(comp1)
+        num_result_after_after = docLoader.count_nodes()
+        self.assertEqual(num_result_before,num_result_after_after)
+        
+
         
 
 

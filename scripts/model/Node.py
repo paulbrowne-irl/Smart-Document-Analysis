@@ -1,7 +1,14 @@
 from py2neo.ogm import GraphObject, Label, Property, Related, RelatedTo
 
 # Tutorial https://py2neo.org/v4/ogm.html
-    
+
+class KeywordNode(GraphObject):
+
+    __primarykey__ = "word"
+
+    Keyword = Label()
+    word = Property()
+    testdata = Property()
 
 
 class DocumentNode(GraphObject):
@@ -13,7 +20,7 @@ class DocumentNode(GraphObject):
     text = Property("text")
     testdata = Property()
 
-    #company = Related("company","CONTAINS")
+    keyword = Related(KeywordNode)
 
 
 class CompanyNode(GraphObject):
