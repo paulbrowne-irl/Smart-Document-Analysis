@@ -71,19 +71,15 @@ class Walker (object):
             #reset the contents
             text_contents=""
 
-            # these files names give a .\filename - hence we drop the first two characters
-            #input_file_name=entry.path[2:]
             input_file_name=entry.path
             output_file_name=input_file_name+".txt"
 
             if entry.is_dir():
                 print("Skipping Directory:"+entry.path)
-                continue
-
+                
             elif os.path.isfile(output_file_name):
                 print("Skipping as Output file already exists:"+output_file_name)
-                continue
-            
+                
             elif input_file_name[-4:].lower() == ".pdf":
                 text_contents=self.processPDF(entry)
 
@@ -92,7 +88,7 @@ class Walker (object):
                 print("trying to process file:"+input_file_name)
                 text_contents=self.processTextTract(input_file_name)
             
-            #### check what we should do with this
+            # check what we should do with this
             if(dump_to_file):
                 f = open(output_file_name,'w', encoding='utf-8')
                 f.write(text_contents)

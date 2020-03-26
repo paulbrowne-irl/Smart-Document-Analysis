@@ -1,13 +1,20 @@
 from bottle import Bottle, run, get, static_file
-import scripts.graphdb
 
 app = Bottle()
 
 # Python mappings
 @app.route('/ReadNeo4j')
 def ReadNeo4j():
-    db = scripts.graphdb.DB_Access()
-    return db.get_greeting("message")
+    cars = [ {'name': 'Audi', 'price': 52642},
+        {'name': 'Mercedes', 'price': 57127},
+        {'name': 'Skoda', 'price': 9000},
+        {'name': 'Volvo', 'price': 29000},
+        {'name': 'Bentley', 'price': 350000},
+        {'name': 'Citroen', 'price': 21000},
+        {'name': 'Hummer', 'price': 41400},
+        {'name': 'Volkswagen', 'price': 21600} ]
+
+    return dict(data=cars)
 
 # Default html
 @app.route('/<filename>')
@@ -30,7 +37,6 @@ def img(filepath):
 @get("/static/js/<filepath:re:.*\.js>")
 def js(filepath):
     return static_file(filepath, root="www/js")
-
 
 # Run from command line
 run(app, host='localhost', port=8081, debug=True)

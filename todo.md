@@ -1,10 +1,9 @@
 # NOW (MAX OF 4)
 
-+ refatctor text extract (a) into extractor (b) into walker (c)into classe
-+ directory walker - add first pass at DB
++ directory walker - add first pass at DB , driven by web
 
 ## PROJECT AIM
-
+Currently pushing to get text loaded to neo4j graph, then analyse
 Search *all* text snippets and suggest companies
 
 ## tidy
