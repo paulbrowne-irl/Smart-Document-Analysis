@@ -1,0 +1,1 @@
+''' Scripts to Gather meaning from previously extracted info e.g. a NLP sentiment score'''
