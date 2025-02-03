@@ -1,15 +1,16 @@
 # TODO
 
-* Tidy file below (all copied)
-* Understand tidy code (inc incubator)
+* Understand tidy code
 * tidy docs (esp readme)
-* What bring in from as standards https://github.com/paulbrowne-irl/AI-Knowledgement-Emails-and-Documents 
+
 
 
 # Upgrades to most recent standard
+* update readme
 * update project structure (tests)
 * setup virtual env
 * anything to move across using 
+* What bring in from as standards https://github.com/paulbrowne-irl/AI-Knowledgement-Emails-and-Documents 
 
 
 # Possible
@@ -20,6 +21,7 @@
 
 # tidy overall projects
 * fold extract-pdf-excel into this 
+* Powerpoint on what the project can do
 
 
 # Functionality
