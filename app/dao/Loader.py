@@ -1,4 +1,4 @@
-import scripts.dao.Config
+import app.dao.Config
 from typing import Final
 
 from py2neo import Graph, Node
@@ -62,6 +62,6 @@ class DocumentLoader(object):
 
 # simple code to run / test class from command line
 if __name__ == '__main__':
-    config = scripts.dao.Config.SmartConfig("../../config.ini")
+    config = app.dao.Config.SmartConfig("../../config.ini")
     db = DocumentLoader(config)
     

@@ -8,7 +8,7 @@ import textract
 import PyPDF2
 #import win32com.client
 #import subprocess
-import scripts.dao.Node
+import app.dao.Node
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -94,7 +94,7 @@ class Walker (object):
                 f.write(text_contents)
                 f.close()
             else:
-                doc1 = scripts.dao.Node.DocumentNode()
+                doc1 = app.dao.Node.DocumentNode()
                 doc1.filename ="filename"
                 doc1.contents =text_contents
                 node_list.append(doc1)
