@@ -9,7 +9,6 @@
 # Upgrades to most recent standard
 * update project structure (tests)
 * setup virtual env
-* move master to main
 * anything to move across using 
 
 
