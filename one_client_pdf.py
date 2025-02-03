@@ -16,7 +16,7 @@ import report.pdf_smusher
 '''Module level variables - these are safe to edit'''
 path = '..'                                 # where we look for client info
 skip_dir = 'z_scripts'                      # directories to ignore
-output_dir='z_output'                       # where we will generate the output
+output_dir='output'                       # where we will generate the output
 start_output_file_name="client_handback_"    # the start of the combined file aname
 tmp_dir='C:/tmp/'                           # a working directory that is safe to delete
 header_template='templates/000-front.docx'  # a front page for our output

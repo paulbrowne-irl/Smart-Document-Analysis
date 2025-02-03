@@ -1,3 +1,32 @@
+# TODO
+
+* Tidy file below (all copied)
+* Understand tidy code (inc incubator)
+* tidy docs (esp readme)
+* What bring in from as standards https://github.com/paulbrowne-irl/AI-Knowledgement-Emails-and-Documents 
+
+
+# Upgrades to most recent standard
+* update project structure (tests)
+* setup virtual env
+* move master to main
+* anything to move across using 
+
+
+# Possible
+* extract pdf (possible using Data prep kit https://github.com/IBM/data-prep-kit/blob/dev/transforms/language/pdf2parquet/README.md)
+* run against llm
+* tidy requirements .txt
+
+# tidy overall projects
+* fold extract-pdf-excel into this 
+
+
+# use or remove - data prep kit
+
+
+===
+
 # AIM
 
 * summary of last updated on files

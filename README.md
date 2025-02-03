@@ -32,7 +32,7 @@ The top of each script contains parameters to modify the script behaviour
 + report - report these insights
 + templates - templates used in reporting
 + test_data - does what it says on the tin
-+ z_output - output- may be deleted by scripts
++ output - output- may be deleted by scripts
 
 
 ===

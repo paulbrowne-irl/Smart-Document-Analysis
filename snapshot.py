@@ -18,7 +18,7 @@ import extract.meta_extract
 
 '''Module level variables - these are safe to edit'''
 path = '..'
-output_file_name = 'z_output\\output.xls'
+output_file_name = 'output\\output.xls'
 skip_dir = 'z_scripts'
 
 ''' Run an analysis of the files in directory marked path'''  
