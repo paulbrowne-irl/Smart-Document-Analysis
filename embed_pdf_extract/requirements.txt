@@ -1,0 +1,11 @@
+nltk
+pandas
+pypdf2
+openpyxl
+Pillow
+pytesseract
+pdf2image
+docx2txt
+
+# may also need to do sudo apt-get install tesseract-ocr
+# may also need to do sudo apt-get install poppler-utils

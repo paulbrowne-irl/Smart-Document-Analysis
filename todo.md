@@ -6,6 +6,7 @@
 
 
 # Upgrades to most recent standard
+* tidy folder containing findme.txt
 * update readme
 * update project structure (tests)
 * setup virtual env
