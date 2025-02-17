@@ -1,31 +1,31 @@
 # TODO
 
-* Understand tidy code
-* tidy docs (esp readme)
+## Documentation
+*   [ ] **(High Priority, Due: 2024-01-31)** Tidy docs (esp readme)
+    *   [ ] Update project description
+    *   [ ] Add contribution guidelines
+*   [ ] Powerpoint on what the project can do
 
+## Code Refactoring
+*   [ ] **(High Priority, Due: 2024-02-07)** Understand tidy code
+*   [ ] Tidy folder containing findme.txt
+*   [ ] Update project structure (tests)
+*   [ ] Setup virtual env
 
+## Dependency Management
+*   [ ] Tidy requirements .txt
+*   [ ] Upgrades to most recent standard
 
-# Upgrades to most recent standard
-* tidy folder containing findme.txt
-* update readme
-* update project structure (tests)
-* setup virtual env
-* anything to move across using 
-* What bring in from as standards https://github.com/paulbrowne-irl/AI-Knowledgement-Emails-and-Documents 
+## Configuration
+*   [ ] Additional config public / silver like on other projects
 
+## Integration
+*   [ ] Anything to move across using 
+*   [ ] What bring in from as standards https://github.com/paulbrowne-irl/AI-Knowledgement-Emails-and-Documents 
 
-# Possible
-* extract pdf (possible using Data prep kit https://github.com/IBM/data-prep-kit/blob/dev/transforms/language/pdf2parquet/README.md)
-* run against llm
-* tidy requirements .txt
-* additional config public / silver like on other projects
-
-# tidy overall projects
-* fold extract-pdf-excel into this 
-* Powerpoint on what the project can do
-
-
-# Functionality
-* Look through list of URLS, grab pdf, extract information, 
+## New Functionality
+*   [ ] Extract pdf (possible using Data prep kit https://github.com/IBM/data-prep-kit/blob/dev/transforms/language/pdf2parquet/README.md)
+*   [ ] Run against llm
+*   [ ] Look through list of URLS, grab pdf, extract information,
 
 
