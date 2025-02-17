@@ -3,6 +3,18 @@
 Analyze a set of documents (from companies) to give a useful snapshot or summary.
 Original Documents are left unmodified, the only reports modified are in the 'output' folder
 
+## Table of Contents
+1.  [Expected folder structure](#expected-folder-structure)
+2.  [Scripts](#scripts)
+3.  [Script Structure](#script-struture)
+4.  [What can you do with this project?](#what-can-you-do-with-this-project)
+5.  [Keeping confidential information confidential by default](#keeping-confidential-information-confidential-by-default)
+6.  [Key sections in this guide](#key-sections-in-this-guide)
+7.  [Underlying technologies](#underlying-technologies)
+8.  [Configuration](#configuration)
+9.  [First time Setup](#first-time-setup)
+10. [Running the application](#running-the-application)
+
 ## Expected folder structure
 
 Most scripts have a parameter to point to the client documents (e.g. '..').
@@ -40,6 +52,13 @@ add text ..
 -->
 
 ### What can you do with this project? 
+
+This project allows you to:
+
+*   Quickly summarize key information from a collection of documents.
+*   Identify trends and patterns in client communications.
+*   Automate the process of answering common business questions.
+*   Integrate with other tools like Power Automate for automated workflows.
 
 add text ..
 <!--
@@ -107,6 +126,15 @@ add text ..
 
 ## Configuration
 
+The main configuration file is located at `app/config/config.conf`.  This file controls various aspects of the application, including:
+
+*   Data source locations
+*   LLM selection (local or remote)
+*   Redaction settings
+*   API keys
+
+Refer to the comments within the `app/config/config.conf` file for detailed explanations of each setting.
+
 __ todo - implement this __
 
 * The main confirmation file is  in `app/config/config.conf` . This config file is shared for the ingest script, the Bot and the Application. Please edit this using the notes in the `app/config` folder.
@@ -119,7 +147,7 @@ __ todo - implement this __
 To setup the project on your local machine, then run for the first time:
 1. Checkout / download the project as a folder onto the host computer from the source 
 __ todo update link __
-https://github.com/paulbrowne-irl/knowledgebase-elastic-rag
+https://github.com/paulbrowne-irl/smart-document-analysis
 
 1. Install Python (3.12 or higher) in the usual way. Python `pip` and `virtualenv` tools are also needed.
 
@@ -242,6 +270,10 @@ To run the bot.
 
 
 -->
+
+## Contributing
+
+Contributions to this project are welcome!  Please see the `CONTRIBUTING.md` file for guidelines on how to contribute.
 
 
 
