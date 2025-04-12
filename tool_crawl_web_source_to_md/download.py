@@ -13,14 +13,14 @@ import pprint
 
 # CONFIG
 # Set to True if you want to loop over the URLs, otherwise runs once and exits
-LOOP_FLAG = False
+SINGLE_RUN_NO_LOOP = True
 DOWNLOAD_HTML = "downloads_html"
 DOWNLOAD_PARQUET = "downloads_parquet"
 DOWNLOAD_MD = "downloads_md"
 # Notebook lm only allows 50 total input sources, this allows to combine inputs into one file
 COMBINE_X_WEBSITES_INTO_ONE_MD_FILE = 4
-DEPTH = 2
-NUM_DOWNLOADS = 2
+DEPTH = 3
+NUM_DOWNLOADS = 100
 PQ_COLS_SKIP = ["document_id", "size"]
 
 MD_OUTPUT_FILE_BASE = "source_"
@@ -105,6 +105,7 @@ def convert_urls_to_md(url_dict):
         # Check if the number of URLs exceeds the limit
         if counter >= COMBINE_X_WEBSITES_INTO_ONE_MD_FILE:
             break
+
 
     # download these files
     logger.info(f"Starting Conversion of Web to Parquet")
@@ -224,7 +225,7 @@ def convert_urls_to_md(url_dict):
 
     logger.info("\n Chunk Processing complete.")
 
-    return next_urls
+    return url_dict
 
 
 if __name__ == "__main__":
@@ -274,10 +275,10 @@ if __name__ == "__main__":
             
         
         logger.info(f"remaining written to {URL_SNAPHOT_JSON}")
-        pprint.pprint(url_dict)
+        
 
         # break if set in config
-        if (LOOP_FLAG == False):
+        if (SINGLE_RUN_NO_LOOP == True):
             logger.info(f"Info: Config set not to loop . Exiting.")
             break
 
