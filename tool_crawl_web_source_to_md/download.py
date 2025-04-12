@@ -20,7 +20,7 @@ DEPTH=3
 NUM_DOWNLOADS=100
 PQ_COLS_SKIP=["document_id", "size"]
 
-MD_OUTPUT_FILE_BASE="source_as_md"
+MD_OUTPUT_FILE_BASE="source"
 URL_SNAPHOT_JSON="url_snapshot.json"
 
 
@@ -173,7 +173,7 @@ def convert_urls_to_md(url_list):
 
     # --- 4 Save the MD file  ---
     output_md_path = None
-    output_filename = 'source'.join(file_sources)+".md"
+    output_filename = MD_OUTPUT_FILE_BASE.join(file_sources)+".md"
     output_md_path = os.path.join(DOWNLOAD_MD, output_filename)
 
 
