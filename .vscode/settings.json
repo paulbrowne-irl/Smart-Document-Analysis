@@ -13,5 +13,7 @@
     "python.testing.nosetestsEnabled": false,
     "explorer.sortOrder": "type",
     "terminal.integrated.copyOnSelection": true,
-    "terminal.integrated.macOptionClickForcesSelection": true
+    "terminal.integrated.macOptionClickForcesSelection": true,
+    "telemetry.feedback.enabled": false,
+    "githubPullRequests.experimental.notificationsView": false
 }

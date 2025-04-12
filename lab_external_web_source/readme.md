@@ -1,0 +1,1 @@
+crawler to download list from sources.txt and output as md , suitable for use in Notebook LM
