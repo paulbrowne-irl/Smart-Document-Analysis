@@ -12,8 +12,9 @@ import logging
 
 
 #CONFIG
+DOWNLOAD_HTML="downloads_html"
 DOWNLOAD_PARQUET="downloads_parquet"
-DOWNLOAD_MD="../downloads_md"
+DOWNLOAD_MD="downloads_md"
 COMBINE_X_WEBSITES_INTO_ONE_MD_FILE=4   # Notebook lm only allows 50 total input sources, this allows to combine inputs into one file
 DEPTH=3
 NUM_DOWNLOADS=2000
@@ -72,6 +73,10 @@ def convert_urls_to_md(url_list):
         # clear interim folders
         shutil.rmtree(DOWNLOAD_PARQUET, ignore_errors=True)
         shutil.os.makedirs(DOWNLOAD_PARQUET, exist_ok=True)
+        shutil.rmtree(DOWNLOAD_HTML, ignore_errors=True)
+        shutil.os.makedirs(DOWNLOAD_HTML, exist_ok=True)
+        # don't delete, just ensuire it exists
+        shutil.os.makedirs(DOWNLOAD_MD, exist_ok=True)
 
         #increment counter
         file_counter += 1
@@ -83,10 +88,18 @@ def convert_urls_to_md(url_list):
         #download these files
         logger.info(f"Starting Conversion of Web to Parquet")
 
+        # for some reason that just outputs html files, not parquet
         Web2Parquet(urls= next_urls,
                 depth=DEPTH, 
                 downloads=NUM_DOWNLOADS,
-                folder=DOWNLOAD_PARQUET).transform()
+                folder=DOWNLOAD_HTML).transform()
+        
+        # convert html to parquet
+        result = Html2Parquet(input_folder= DOWNLOAD_HTML, 
+               output_folder= DOWNLOAD_PARQUET, 
+               data_files_to_use=['.html'],
+               html2parquet_output_format= "markdown"
+               ).transform()
 
         
         # Now scans a directory for .parquet files, sorts them, and converts them
@@ -169,11 +182,8 @@ def convert_urls_to_md(url_list):
             except IOError as e:
                 logger.info(f"Error writing final Markdown file '{output_md_path}': {e}", file=sys.stderr)
             except Exception as e:
-                logger.info(f"An unexpected error occurred while writing final file '{output_md_path}': {e}", file=sys.stderr)
+                logger.info(f"An unexpected error occurred while writing  file '{output_md_path}': {e}", file=sys.stderr)
 
-
-        ##################
-        break
 
     logger.info("\nProcessing complete.")
 
