@@ -3,7 +3,6 @@ data-prep-toolkit-transforms
 data-prep-connector
 nest_asyncio
 trafilatura
-reportlab
 pandas
 pyarrow
 selenium
