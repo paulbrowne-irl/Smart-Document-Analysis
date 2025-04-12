@@ -4,6 +4,7 @@ from dpk_html2parquet.transform_python import Html2Parquet
 import sys
 import os
 import shutil
+import json
 
 import pandas as pd
 import logging
@@ -17,8 +18,9 @@ DOWNLOAD_PARQUET="downloads_parquet"
 DOWNLOAD_MD="downloads_md"
 COMBINE_X_WEBSITES_INTO_ONE_MD_FILE=4   # Notebook lm only allows 50 total input sources, this allows to combine inputs into one file
 DEPTH=3
-NUM_DOWNLOADS=2000
+NUM_DOWNLOADS=400
 MD_OUTPUT_FILE_BASE="source_as_md"
+SNAPSHOT_FILE="sources-remaining.json"
 
 
 def get_list_source_files(source_file_as_txt):
@@ -57,135 +59,137 @@ def get_list_source_files(source_file_as_txt):
     return url_list
                     
 
-def convert_urls_to_md(url_list):
+def convert_urls_to_md(filecounter, url_list):
     """
     Converts a list of URLs to markdown files.  This is a placeholder function
     and should be replaced with the actual implementation.
     
     Args:
+        filecounter (int): A counter to keep track of the number of files processed.
         url_list (list): A list of URLs to be converted.
     """
-    file_counter=0
-  
-    # Loop over all the URLs in the list
-    while (len(url_list) > 0):
+    # clear interim folders
+    shutil.rmtree(DOWNLOAD_PARQUET, ignore_errors=True)
+    shutil.os.makedirs(DOWNLOAD_PARQUET, exist_ok=True)
+    shutil.rmtree(DOWNLOAD_HTML, ignore_errors=True)
+    shutil.os.makedirs(DOWNLOAD_HTML, exist_ok=True)
+    # don't delete, just ensuire it exists
+    shutil.os.makedirs(DOWNLOAD_MD, exist_ok=True)
 
-        # clear interim folders
-        shutil.rmtree(DOWNLOAD_PARQUET, ignore_errors=True)
-        shutil.os.makedirs(DOWNLOAD_PARQUET, exist_ok=True)
-        shutil.rmtree(DOWNLOAD_HTML, ignore_errors=True)
-        shutil.os.makedirs(DOWNLOAD_HTML, exist_ok=True)
-        # don't delete, just ensuire it exists
-        shutil.os.makedirs(DOWNLOAD_MD, exist_ok=True)
 
-        #increment counter
-        file_counter += 1
+    # --- 1 Download the next lot of urls ---
+    next_urls = url_list[:COMBINE_X_WEBSITES_INTO_ONE_MD_FILE]
+    url_list = url_list[COMBINE_X_WEBSITES_INTO_ONE_MD_FILE-1:]
 
-        # --- 1 Download the next lot of urls ---
-        next_urls = url_list[:COMBINE_X_WEBSITES_INTO_ONE_MD_FILE]
-        url_list = url_list[COMBINE_X_WEBSITES_INTO_ONE_MD_FILE-1:]
+    #download these files
+    logger.info(f"Starting Conversion of Web to Parquet")
 
-        #download these files
-        logger.info(f"Starting Conversion of Web to Parquet")
-
-        # for some reason that just outputs html files, not parquet
-        Web2Parquet(urls= next_urls,
-                depth=DEPTH, 
-                downloads=NUM_DOWNLOADS,
-                folder=DOWNLOAD_HTML).transform()
-        
-        # convert html to parquet
-        result = Html2Parquet(input_folder= DOWNLOAD_HTML, 
-               output_folder= DOWNLOAD_PARQUET, 
-               data_files_to_use=['.html'],
-               html2parquet_output_format= "markdown"
-               ).transform()
-
-        
-        # Now scans a directory for .parquet files, sorts them, and converts them
-        # into multiple MD files. 
+    # for some reason that just outputs html files, not parquet
+    Web2Parquet(urls= next_urls,
+            depth=DEPTH, 
+            downloads=NUM_DOWNLOADS,
+            folder=DOWNLOAD_HTML).transform()
     
+    # convert html to parquet
+    result = Html2Parquet(input_folder= DOWNLOAD_HTML, 
+            output_folder= DOWNLOAD_PARQUET, 
+            data_files_to_use=['.html'],
+            html2parquet_output_format= "markdown"
+            ).transform()
 
-        logger.info(f"Scanning directory: {DOWNLOAD_PARQUET}")
+    
+    # Now scans a directory for .parquet files, sorts them, and converts them
+    # into multiple MD files. 
 
-        # --- 2. Find and Sort Parquet Files ---
-        parquet_files = []
+
+    logger.info(f"Scanning directory: {DOWNLOAD_PARQUET}")
+
+    # --- 2. Find and Sort Parquet Files ---
+    parquet_files = []
+    try:
+        for filename in os.listdir(DOWNLOAD_PARQUET):
+            if filename.lower().endswith(".parquet"):
+                full_path = os.path.join(DOWNLOAD_PARQUET, filename)
+                parquet_files.append(full_path)
+                logger.info(f"Found parquet file: {full_path}")
+    except OSError as e:
+        logger.info(f"Error accessing directory: {e}", file=sys.stderr)
+        return
+
+    if not parquet_files:
+        logger.info("No .parquet files found in the directory.")
+        return
+
+    parquet_files.sort()
+    logger.info(f"Found {len(parquet_files)} parquet files. Processing...")
+
+    # --- 3. Process Files and Generate Markdown Files ---
+    #current_prefix = None
+    current_md_content = "" # Accumulate markdown content as a string
+    output_md_path = None
+    output_filename = f"{MD_OUTPUT_FILE_BASE}_{file_counter}.md" # Changed extension
+    output_md_path = os.path.join(DOWNLOAD_MD, output_filename)
+
+    # do the loop
+    for i, file_path in enumerate(parquet_files):
+        filename = os.path.basename(file_path)
+
+        # --- Read Parquet File ---
+        logger.info(f"  Reading: {filename}...")
         try:
-            for filename in os.listdir(DOWNLOAD_PARQUET):
-                if filename.lower().endswith(".parquet"):
-                    full_path = os.path.join(DOWNLOAD_PARQUET, filename)
-                    parquet_files.append(full_path)
-                    logger.info(f"Found parquet file: {full_path}")
-        except OSError as e:
-            logger.info(f"Error accessing directory: {e}", file=sys.stderr)
-            return
+            df = pd.read_parquet(file_path)
+            # Add filename using Markdown H2
+            current_md_content += f"## Data from: {filename}\n\n"
 
-        if not parquet_files:
-            logger.info("No .parquet files found in the directory.")
-            return
+            # --- Convert DataFrame to Markdown Text ---
+            if df.empty:
+                current_md_content += "_(File contains no data)_\n\n"
+            else:
+                for col_name in df.columns:
+                    # Add column name using Markdown H3
+                    current_md_content += f"### {col_name}\n"
 
-        parquet_files.sort()
-        logger.info(f"Found {len(parquet_files)} parquet files. Processing...")
+                    # Add column contents in a text code block
+                    # wascol_content_str = df[col_name].to_string(index=False)
+                    col_content_str = df[col_name].to_string(index=False)
+                    
+                    current_md_content += f"```text\n{col_content_str}\n```\n\n"
 
-        # --- 3. Process Files and Generate Markdown Files ---
-        #current_prefix = None
-        current_md_content = "" # Accumulate markdown content as a string
-        output_md_path = None
-        output_filename = f"{MD_OUTPUT_FILE_BASE}_{file_counter}.md" # Changed extension
-        output_md_path = os.path.join(DOWNLOAD_MD, output_filename)
+        except Exception as e:
+            logger.info(f"  Error reading or processing parquet file '{filename}': {e}", file=sys.stderr)
+            # Add error message to markdown
+            current_md_content += f"**Error processing {filename}:**\n```\n{e}\n```\n\n"
 
-        # do the loop
-        for i, file_path in enumerate(parquet_files):
-            filename = os.path.basename(file_path)
-
-            # --- Read Parquet File ---
-            logger.info(f"  Reading: {filename}...")
-            try:
-                df = pd.read_parquet(file_path)
-                # Add filename using Markdown H2
-                current_md_content += f"## Data from: {filename}\n\n"
-
-                # --- Convert DataFrame to Markdown Text ---
-                if df.empty:
-                    current_md_content += "_(File contains no data)_\n\n"
-                else:
-                    for col_name in df.columns:
-                        # Add column name using Markdown H3
-                        current_md_content += f"### {col_name}\n"
-
-                        # Add column contents in a text code block
-                        # wascol_content_str = df[col_name].to_string(index=False)
-                        col_content_str = df[col_name].to_string(index=False)
-                        
-                        current_md_content += f"```text\n{col_content_str}\n```\n\n"
-
-            except Exception as e:
-                logger.info(f"  Error reading or processing parquet file '{filename}': {e}", file=sys.stderr)
-                # Add error message to markdown
-                current_md_content += f"**Error processing {filename}:**\n```\n{e}\n```\n\n"
-
-            # --- Add Horizontal Rule after each file's content ---
-            # This acts as a separator similar to PageBreak in PDF
-            current_md_content += "---\n\n"
+        # --- Add Horizontal Rule after each file's content ---
+        # This acts as a separator similar to PageBreak in PDF
+        current_md_content += "---\n\n"
 
 
-        # --- 4 Save the MD file  ---
-        if current_md_content and output_md_path:
-            # Remove trailing horizontal rule if it exists before saving
-            if current_md_content.endswith("\n---\n\n"):
-                current_md_content = current_md_content[:-5] # Remove last rule and newlines
-            try:
-                logger.info(f"Saving final Markdown: {output_md_path}...")
-                with open(output_md_path, 'w', encoding='utf-8') as f:
-                    f.write(current_md_content)
-                logger.info(f"Successfully created: {output_md_path}")
-            except IOError as e:
-                logger.info(f"Error writing final Markdown file '{output_md_path}': {e}", file=sys.stderr)
-            except Exception as e:
-                logger.info(f"An unexpected error occurred while writing  file '{output_md_path}': {e}", file=sys.stderr)
+    # --- 4 Save the MD file  ---
+    if current_md_content and output_md_path:
+        # Remove trailing horizontal rule if it exists before saving
+        if current_md_content.endswith("\n---\n\n"):
+            current_md_content = current_md_content[:-5] # Remove last rule and newlines
+        try:
+            logger.info(f"Saving final Markdown: {output_md_path}...")
+            with open(output_md_path, 'w', encoding='utf-8') as f:
+                f.write(current_md_content)
+            logger.info(f"Successfully created: {output_md_path}")
+        except IOError as e:
+            logger.info(f"Error writing final Markdown file '{output_md_path}': {e}", file=sys.stderr)
+        except Exception as e:
+            logger.info(f"An unexpected error occurred while writing  file '{output_md_path}': {e}", file=sys.stderr)
 
 
-    logger.info("\nProcessing complete.")
+    # --- 5 snapshot the next urls if we have to run again  ---
+    with open(SNAPSHOT_FILE, 'w') as filehandle:
+        json.dump(next_urls, filehandle)
+
+    logger.info(f"Remaining sources list written to {SNAPSHOT_FILE}")
+
+    logger.info("\n Chunck Processing complete.")
+
+    return next_urls
 
 
 
@@ -200,7 +204,8 @@ if __name__ == "__main__":
 
     # Set system level parameters
     filename="sources.txt"
-    nest_asyncio.apply()
+    file_counter=0
+    #nest_asyncio.apply()
     pd.set_option("display.max_colwidth", 10000)
 
 
@@ -211,13 +216,16 @@ if __name__ == "__main__":
         filename = sys.argv[1]
 
 
-    # clear previous downloads
-
-    #shutil.rmtree(DOWNLOAD_MD, ignore_errors=True)
-    #shutil.os.makedirs(DOWNLOAD_MD, exist_ok=True)
-
     #download and transform
     url_list = get_list_source_files(filename)
+
+    while (len(url_list) > 0):
+        # Process the URLs in chunks
+        file_counter +=1
+        logger.info(f"Processing chunk {file_counter} remaining urls {len(url_list)} ")
+        url_list = convert_urls_to_md(file_counter, url_list)
+
+
     convert_urls_to_md(url_list)
 
     
