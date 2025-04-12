@@ -10,17 +10,18 @@ import pandas as pd
 import logging
 
 
-
-
 #CONFIG
+LOOP_FLAG = False  # Set to True if you want to loop over the URLs, otherwise runs once and exits
 DOWNLOAD_HTML="downloads_html"
 DOWNLOAD_PARQUET="downloads_parquet"
 DOWNLOAD_MD="downloads_md"
 COMBINE_X_WEBSITES_INTO_ONE_MD_FILE=4   # Notebook lm only allows 50 total input sources, this allows to combine inputs into one file
 DEPTH=3
-NUM_DOWNLOADS=400
+NUM_DOWNLOADS=100
+PQ_COLS_SKIP=["document_id", "size"]
+
 MD_OUTPUT_FILE_BASE="source_as_md"
-SNAPSHOT_FILE="sources-remaining.json"
+URL_SNAPHOT_JSON="url_snapshot.json"
 
 
 def get_list_source_files(source_file_as_txt):
@@ -49,7 +50,7 @@ def get_list_source_files(source_file_as_txt):
                     url_list.append(url)
 
     except FileNotFoundError:
-        logger.info(f"Error: File not found - '{filename}'.  Please ensure the file exists and the path is correct.", file=sys.stderr)
+        logger.info(f"Error: File not found - '{master_source_file}'.  Please ensure the file exists and the path is correct.", file=sys.stderr)
         #  It's good practice to exit with a non-zero status code on error.
         sys.exit(1)
     except Exception as e:
@@ -59,13 +60,12 @@ def get_list_source_files(source_file_as_txt):
     return url_list
                     
 
-def convert_urls_to_md(filecounter, url_list):
+def convert_urls_to_md(url_list):
     """
     Converts a list of URLs to markdown files.  This is a placeholder function
     and should be replaced with the actual implementation.
     
     Args:
-        filecounter (int): A counter to keep track of the number of files processed.
         url_list (list): A list of URLs to be converted.
     """
     # clear interim folders
@@ -124,36 +124,42 @@ def convert_urls_to_md(filecounter, url_list):
     logger.info(f"Found {len(parquet_files)} parquet files. Processing...")
 
     # --- 3. Process Files and Generate Markdown Files ---
-    #current_prefix = None
+    file_sources = set()
     current_md_content = "" # Accumulate markdown content as a string
-    output_md_path = None
-    output_filename = f"{MD_OUTPUT_FILE_BASE}_{file_counter}.md" # Changed extension
-    output_md_path = os.path.join(DOWNLOAD_MD, output_filename)
+
 
     # do the loop
-    for i, file_path in enumerate(parquet_files):
+    for file_path in enumerate(parquet_files):
         filename = os.path.basename(file_path)
 
         # --- Read Parquet File ---
         logger.info(f"  Reading: {filename}...")
+
+        #add first 8 letters to generate unque filename
+        file_sources.add(filename[0:8])
+
         try:
             df = pd.read_parquet(file_path)
             # Add filename using Markdown H2
-            current_md_content += f"## Data from: {filename}\n\n"
+            current_md_content += f"## Data from Website: http://www.{filename[0:-8]}\n\n"
 
             # --- Convert DataFrame to Markdown Text ---
             if df.empty:
                 current_md_content += "_(File contains no data)_\n\n"
             else:
                 for col_name in df.columns:
-                    # Add column name using Markdown H3
-                    current_md_content += f"### {col_name}\n"
 
-                    # Add column contents in a text code block
-                    # wascol_content_str = df[col_name].to_string(index=False)
-                    col_content_str = df[col_name].to_string(index=False)
-                    
-                    current_md_content += f"```text\n{col_content_str}\n```\n\n"
+                    if col_name in PQ_COLS_SKIP:
+                        logging.debug(f"  Skipping column '{col_name}' in file '{filename}'")
+
+                    else:
+                        # Add column name using Markdown H3
+                        current_md_content += f"### {col_name}\n"
+
+                        # Add column contents in a text code block
+                        col_content_str = df[col_name].to_string(index=False)
+                        
+                        current_md_content += f"```text\n{col_content_str}\n```\n\n"
 
         except Exception as e:
             logger.info(f"  Error reading or processing parquet file '{filename}': {e}", file=sys.stderr)
@@ -166,6 +172,12 @@ def convert_urls_to_md(filecounter, url_list):
 
 
     # --- 4 Save the MD file  ---
+    output_md_path = None
+    output_filename = 'source'.join(file_sources)+".md"
+    output_md_path = os.path.join(DOWNLOAD_MD, output_filename)
+
+
+
     if current_md_content and output_md_path:
         # Remove trailing horizontal rule if it exists before saving
         if current_md_content.endswith("\n---\n\n"):
@@ -181,13 +193,8 @@ def convert_urls_to_md(filecounter, url_list):
             logger.info(f"An unexpected error occurred while writing  file '{output_md_path}': {e}", file=sys.stderr)
 
 
-    # --- 5 snapshot the next urls if we have to run again  ---
-    with open(SNAPSHOT_FILE, 'w') as filehandle:
-        json.dump(next_urls, filehandle)
 
-    logger.info(f"Remaining sources list written to {SNAPSHOT_FILE}")
-
-    logger.info("\n Chunck Processing complete.")
+    logger.info("\n Chunk Processing complete.")
 
     return next_urls
 
@@ -203,27 +210,45 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
 
     # Set system level parameters
-    filename="sources.txt"
-    file_counter=0
-    #nest_asyncio.apply()
+    master_source_file="sources.txt"
+    nest_asyncio.apply()
     pd.set_option("display.max_colwidth", 10000)
 
+    #load sources
+    if os.path.exists(URL_SNAPHOT_JSON):
+        with open(URL_SNAPHOT_JSON, 'r') as f:
+            url_list = json.load(f)  # Load the entire JSON content
+            if not isinstance(url_list, list): # check if the data is a list
 
-    if len(sys.argv) != 2:
-        logger.info(f"no source filename give, defaulting to {filename}")
-        # sys.exit(1)  # Exit if the correct number of arguments is not provided
+                logger.info(f"Warning: File '{master_source_file}' did not contain a list. defaulting to {master_source_file}.")
+                url_list = get_list_source_files(master_source_file)
+
     else:
-        filename = sys.argv[1]
+        logger.info(f"Info: File '{master_source_file}' not found. defaulting to {master_source_file}.")
+        url_list = get_list_source_files(master_source_file)
 
+    if(len(url_list) == 0):
+        logger.info(f"Error: No URLs found in the file. Exiting.")
+        sys.exit(1)
 
-    #download and transform
-    url_list = get_list_source_files(filename)
-
+    # loop over the urls
     while (len(url_list) > 0):
         # Process the URLs in chunks
-        file_counter +=1
-        logger.info(f"Processing chunk {file_counter} remaining urls {len(url_list)} ")
-        url_list = convert_urls_to_md(file_counter, url_list)
+
+        logger.info(f"Processing chunk remaining urls amount {len(url_list)} ")
+        url_list = convert_urls_to_md(url_list)
+
+        # --- 5 snapshot the counter if we have to run again  ---
+        with open(URL_SNAPHOT_JSON, 'w') as filehandle:
+            json.dump(url_list, filehandle)
+
+        #break if set in config
+        if(LOOP_FLAG == False):
+            logger.info(f"Info: Config set not to loop . Exiting.")
+            break
+
+    logger.info(f"remaining written to {URL_SNAPHOT_JSON}")
+
 
 
     convert_urls_to_md(url_list)
