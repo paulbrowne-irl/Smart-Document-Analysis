@@ -9,6 +9,7 @@ import json
 import pandas as pd
 import logging
 import pprint
+import time
 
 
 # CONFIG
@@ -20,7 +21,7 @@ DOWNLOAD_MD = "downloads_md"
 # Notebook lm only allows 50 total input sources, this allows to combine inputs into one file
 COMBINE_X_WEBSITES_INTO_ONE_MD_FILE = 4
 DEPTH = 3
-NUM_DOWNLOADS = 100
+NUM_DOWNLOADS = 5
 PQ_COLS_SKIP = ["document_id", "size"]
 
 MD_OUTPUT_FILE_BASE = "source_"
@@ -198,7 +199,10 @@ def convert_urls_to_md(url_dict):
 
     # --- 4 Save the MD file  ---
     if (len(file_sources) > 0):
-        output_filename = MD_OUTPUT_FILE_BASE+''.join(file_sources)+".md"
+        output_filename = MD_OUTPUT_FILE_BASE+time.strftime("%Y%m%d-%H%M%S")+".md"
+
+
+
         logger.info(f"MD Output filename: {output_filename}")
 
         output_md_path = os.path.join(DOWNLOAD_MD, output_filename)

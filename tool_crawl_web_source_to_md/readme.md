@@ -31,10 +31,15 @@ This sub-folder contains a tool for crawling web sources, converting their conte
 
 2. Run the script:
    ```bash
-   python tool_crawl_web_source_to_md/download.py [filename]
+   python tool_crawl_web_source_to_md/download.py 
    ```
-   - Replace `[filename]` with the path to your text file containing URLs.
-   - If no filename is provided, the script defaults to `sources.txt`.
+   - The script will look for a url_snapshot.json (a record)
+   - The script defaults to `sources.txt` and creates url_snapshot.json as needed to record progress
+
+   This means it's possible to run as a single one (possible memory leak in DPK crawler), mulitple times
+   with download.sh being a simple script file to support this
+
+   Deleting the url_snapshot.json file will reset the list
 
 3. The script will:
    - Download the content of the URLs.
