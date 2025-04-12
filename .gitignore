@@ -142,3 +142,7 @@ dmypy.json
 output.xls
 kim.txt
 lab_external_web_source/dump.html
+
+# downloads
+downloads_md/
+downloads_parquet/
